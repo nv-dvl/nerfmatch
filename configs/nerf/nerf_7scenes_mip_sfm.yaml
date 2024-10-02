@@ -1,0 +1,70 @@
+# ['heads', 'chess', 'fire', 'office', 'pumpkin', 'redkitchen', 'stairs']
+# 640 x 480
+data:
+    dataset: 'NerfBaseDataset'
+    data_dir: 'data/7scenes'
+    scene_anno_path: 'data/annotations/7scenes_jsons/sfm/transforms_#scene_#split.json'    
+    img_wh: [480, 480]
+    scene: 'heads'
+    normalize_scene: True
+    snorm_type: 'fst'
+    max_frustum_depth: 1
+    rescale_factor: 1
+    max_sample_num: 900 # define a max samples otherwise training take too long.
+    ray_type: 'mip'    
+
+optim:
+    optimizer: 'adam'
+    lr: 0.0016
+    weight_decay: 0.0
+    lr_scheduler: 'cosine'
+    decay_per_step: -1
+    decay_gamma: -1
+
+coarse_nerf:
+    method: NeRF
+    layer_num : 8
+    hid_dim : 256
+    output_dim : 4
+    skips : [4]
+    num_pts: 128
+
+fine_nerf:
+    method: NeRF
+    layer_num : 8
+    hid_dim : 256
+    output_dim : 4
+    skips : [4]
+    num_pts: 128
+
+embedding:
+    xyz_num_freqs: 15
+    dirs_num_freqs: 4
+    type: 'mip'    
+
+render:
+    chunksize: 16384
+    use_viewdirs: True
+    use_disp: False
+    perturb: True
+    white_bg: False
+    noise_std: 1.0
+    
+loss:
+    use_sem_mask: False
+    ray_reg_weight: 0.01
+    
+
+exp:
+    seed: 12343
+    odir: 'outputs/nerf/7scenes/sfm'
+    prefix: 'ablat/mip'
+    num_workers: 8
+    max_epochs: 15
+    check_epochs: 1
+    batch_size: 9216
+    debug: False
+    log_num_max: 8
+    log_step: 100    
+    
+    

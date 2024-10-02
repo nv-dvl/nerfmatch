@@ -1,0 +1,13 @@
+# >> conda env create -f nerfmatch_env.yml
+name: nerfmatch
+channels:
+    - pytorch
+    - nvidia
+    - conda-forge
+    - defaults
+dependencies:
+    - python=3.9
+    - pytorch=2.0
+    - pytorch-cuda=11.7
+    - torchvision    
+    - pip=23.2.1

@@ -1,0 +1,60 @@
+# ['KingsCollege', 'OldHospital', 'ShopFacade', 'StMarysChurch', 'GreatCourt']
+
+data:
+    dataset: 'NeRFMatchPair'
+    data_dir: 'data/cambridge'
+    scenes: ['ShopFacade']
+    scene_anno_path: 'data/annotations/cambridge_jsons/transforms_#scene_#split.json'
+    scene_dir: 'outputs/scene_dirs/cambridge/inter_layer3/#scene/mip_app/last_15ep/ds8lin'
+    train_pair_txt: 'data/pairs/cambridge/#scene/pairs-db-covis20.txt'
+    test_pair_txt: 'data/pairs/cambridge/#scene/pairs-query-netvlad10.txt'    
+    pair_topk: 20
+    img_wh: [480, 480]
+    img_dim: 3
+    use_msk: False
+    model_ds: 8
+    imagenet_norm: True
+    balanced_pair: True
+    epoch_sample_num: 10000
+    aug_self_pairs: 10
+
+optim:
+    optimizer: 'adam'
+    adapt_lr: True
+    clr: 0.0008
+    cbs: 16
+    weight_decay: 0.0
+    lr_scheduler: 'cosine'
+
+model:
+    backbone: 'convformer384'
+    pretrained: True
+    im_pe: False
+    im_sa_type: 'share'
+    im_sa: 0
+    temp_type: 'mul'
+
+    # pt enc
+    pt_dim: 256
+    pt_sa: 0
+    pt_sa_type: 'full' # full | lft
+    pt_pe: False
+    pt_pe_type: 'fourier'    
+    post_pt_pe: False
+
+    # Matching
+    cfeat_dim: 256
+    cformer_type: 'crs' # crs | lft    
+    coarse_layers: 0
+    pt_ftype: 'nerf'
+
+exp:
+    seed: 12343
+    odir: 'outputs/nerfmatch/coarse/cambridge'
+    prefix: 'eccv/perscene'
+    resume_version: 'mip_app_inter3'
+    num_workers: 4
+    max_epochs: 30
+    check_epochs: 1
+    batch_size: 3 # for 40GB
+    debug: False

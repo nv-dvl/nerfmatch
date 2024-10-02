@@ -1,0 +1,74 @@
+# ['KingsCollege', 'OldHospital', 'ShopFacade', 'StMarysChurch',  'Street','GreatCourt']
+# 1920 x 1080
+
+data:
+    dataset: 'NerfBaseDataset'
+    data_dir: 'data/cambridge'
+    scene_anno_path: 'data/annotations/cambridge_jsons/transforms_#scene_#split.json'
+    img_wh: [480, 480]
+    scene: 'GreatCourt'
+    normalize_scene: True
+    snorm_type: 'fst'
+    max_frustum_depth: 50
+    rescale_factor: 1
+    ray_type: 'mip'
+    scene_seq: null
+    max_sample_num: 900
+    mask_dir: 'data/mask_preprocessed/cambridge'
+    mask_transient: True
+    white_bg: True
+
+optim:
+    optimizer: 'adam'
+    lr: 0.0016
+    weight_decay: 0.0
+    lr_scheduler: 'cosine'
+    decay_per_step: null
+    decay_per_step: -1    
+    decay_gamma: -1
+
+coarse_nerf:
+    method: NeRF
+    layer_num : 8
+    hid_dim : 256
+    output_dim : 4
+    skips : [4]
+    num_pts: 128
+
+fine_nerf:
+    method: NeRF
+    layer_num : 8
+    hid_dim : 256
+    output_dim : 4
+    skips : [4]
+    num_pts: 128
+
+embedding:
+    xyz_num_freqs: 15
+    dirs_num_freqs: 4
+    type: 'mip'
+    appearance_embed: True
+
+render:
+    chunksize: 16384
+    use_viewdirs: True
+    use_disp: False
+    perturb: True
+    white_bg: True
+    noise_std: 1.0
+
+loss:
+    use_sem_mask: True
+    ray_reg_weight: 0.01
+
+exp:
+    seed: 12343
+    odir: 'outputs/nerf/cambridge/'
+    prefix: 'ablat/mip'
+    num_workers: 8
+    max_epochs: 15
+    check_epochs: 1
+    batch_size: 9216
+    debug: False
+    log_num_max: 8
+    log_step: 100

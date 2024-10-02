@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nerfmatch"
+version = "0.1.0"
+description = "NeRFMatch - The NeRFect Match: Exploring NeRF Features for Visual Localization"
+readme = "README.md"
+requires-python = ">=3.7"
+license = { text = "MIT" }
+authors = [
+    { name = "Qunjie Zhou", email = "qunjiez@nvidia.com" },
+    { name = "Maxim Maximov", email = "maxsqr@gmail.com" },
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering"
+]
+
+dependencies = [
+    "torch>=2.0",
+    "transforms3d",
+    "tqdm",
+    "pyyaml",
+    "einops",
+    "yacs",
+    "pillow",
+    "h5py",
+    "gdown",
+    "kornia",
+    "loguru",
+    "imageio",
+    "timm",
+    "joblib",
+    "tensorboard",
+    "psutil",
+    "opencv-python",
+    "nerfacc",
+    "imgviz",
+    "pycolmap==0.4.0",
+]
+
+[tool.setuptools]
+packages = ["nerfmatch", "model_eval", "model_train"]
